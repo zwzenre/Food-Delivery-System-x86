@@ -14,7 +14,7 @@
     continueChoice DB ?
     
     cardNumberMsg DB 'Please enter your card number (16 numbers): $'
-    tngNumberMsg DB 'Please enter your phone number (10-11 numbers): $'
+    tngNumberMsg DB 'Please enter your phone number (10 to 11 numbers without dash): $'
     addressMsg DB 'Please enter your address: $'  
 
     errorMsg DB 'Invalid. Please try again.$'

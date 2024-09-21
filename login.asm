@@ -1,7 +1,7 @@
 .MODEL SMALL
 .STACK 100
 .DATA
-    ;Login Menu
+    ;Login Menu Display
     loginTitle      DB      'Welcome to Our Login Page$'
     header          DB      '----------------------------------------$'
     option1         DB      '1. Login$'
@@ -12,31 +12,31 @@
 
     ;Login
     enterName       DB      'Enter name: $'
-    enterPassword   DB      'Enter password: $'
+    enterPassword   DB      'Enter password: $'                         ;Input Login Display
     msgSuccess      DB      'Login successfully.$'
-    msgFailed       DB      'Login failed. Please try again.$'
+    msgFailed       DB      'Login failed. Please try again.$'          ;Display Login Output
     
-    USER            DB      "admin$"
-    PASS            DB      "123$"
+    USER            DB      "admin$"                                    ;username for login
+    PASS            DB      "123$"                                      ;password for login
     
-    ;Login Username
-    username            LABEL BYTE
+    ;Login Username String
+    username            LABEL BYTE                                              
 	MAXUSERNAME         DB      20
 	ACTUSERNAME         DB      ?
 	usernameBuffer      DB      20 DUP ('$')
     
-    ;Login Password
+    ;Login Password String
     password            LABEL BYTE
 	MAXPASSWORD         DB      20
 	ACTPASSWORD         DB      ?
 	passwordBuffer      DB      20 DUP ('$')
     
-    ;getchar function
-    inputChar           DB      ?                                   ; variable to store the input character 
-    promptMsg           DB      'Press any key to continue: $'
+    ;Getchar Function
+    inputChar           DB      ?                                       ; variable to store the random character
+    promptMsg           DB      'Press any key to continue: $'          ; display a message for user to enter any key
 
 .CODE
-    PUBLIC  LoginMenu
+    PUBLIC  LoginMenu                                                  
     EXTRN   MAIN:NEAR
     EXTRN   MainMenu:NEAR 
 
