@@ -2,12 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=assembler,visualstudiocode
 
 ### Assembler ###
-*.exe
-*.EXE
 *.o
 *.O
-*.obj
-*.OBJ
 *.bc
 *.BC
 *.lst
@@ -35,9 +31,6 @@
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/assembler,visualstudiocode
-
-!LINK.EXE
-!MASM.EXE
 
 # Jetbrains
 .idea/

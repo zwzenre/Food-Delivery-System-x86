@@ -36,9 +36,9 @@
     promptMsg           DB      'Press any key to continue: $'          ; display a message for user to enter any key
 
 .CODE
-    PUBLIC  LoginMenu                                                  
-    EXTRN   MAIN:NEAR
-    EXTRN   MainMenu:NEAR 
+    PUBLIC  LoginMenu                                                   ; Set LoginMenu as public for other files to use
+    EXTRN   MAIN:NEAR                                                   ; Set MAIN from main.asm as external to use        
+    EXTRN   MainMenu:NEAR                                               ;         
 
 include utils.asm
 include loginU.asm
