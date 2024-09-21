@@ -3,33 +3,32 @@
 .DATA
 
     ;menu segment
-    menuTitle DB 'Welcome to Main Menu$'
-    header DB '----------------------------------------$'
-    option1 DB '1. New Order$'
-    option2 DB '2. View Cart$'
-    option3 DB '3. Payment$'
-    option4 DB '4. Remove Order$'
-    return DB '5. Return$'
-    choice DB ?
-    guideOption DB 'Choose between 1-5: $'
-    exitMsg DB 'Exiting the system...$'
+    menuTitle              DB       'Welcome to Main Menu$'
+    header                 DB       '----------------------------------------$'
+    option1                DB       '1. New Order$'
+    option2                DB       '2. View Cart$'
+    option3                DB       '3. Payment$'
+    option4                DB       '4. Remove Order$'
+    return                 DB       '5. Return$'
+    choice                 DB       ?
+    guideOption            DB       'Choose between 1-5: $'
+    exitMsg                DB       'Exiting the system...$'
 
-    inputChar DB ?         ; Variable to store the input character
-    promptMsg DB 'Press any key to continue: $'
+    inputChar              DB       ?                                           ; Variable to store the input character
+    promptMsg              DB       'Press any key to continue: $'
     
     ;delete segment
-    confirmDeleteMsg DB 'Are you sure to remove all orders? (Y = Yes)$'
-    deleteOption DB ? 
-    deleteMsg DB 'Order Deleted$'
+    confirmDeleteMsg       DB       'Are you sure to remove all orders? (Y = Yes)$'
+    deleteOption           DB       ? 
+    deleteMsg              DB       'Order Deleted$'
 
-    errorMsg DB 'Invalid Choice. Please choose again.$'
+    errorMsg               DB       'Invalid Choice. Please choose again.$'
 
-    ;global var
-    EXTRN selectionArray:BYTE
-    EXTRN grandTotal:WORD 
-    ;EXTRN itemLoop:BYTE
-    EXTRN totalItemCount:BYTE
-    EXTRN quantity:BYTE
+    ;set following data types as external to become a global variable for to be used in other files
+    EXTRN selectionArray:BYTE                  
+    EXTRN grandTotal:WORD                      
+    EXTRN totalItemCount:BYTE                  
+    EXTRN quantity:BYTE                        
 
 
 .CODE

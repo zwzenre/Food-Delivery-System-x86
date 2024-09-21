@@ -1,11 +1,12 @@
 .MODEL SMALL
 .STACK 100H
 .DATA
-    menuTitle DB 'Welcome to Cart Page$'
-    header DB 'Food                                 Quantity$'
-    dots DB '----------------------------------------------------$'
+    menuTitle                       DB 'Welcome to Cart Page$'
+    header                          DB 'Food                                 Quantity$'
+    dots                            DB '----------------------------------------------------$'
+    
     EXTRN selectionArray:BYTE
-    EXTRN grandTotal:WORD 
+    EXTRN grandTotal:WORD   
     EXTRN totalItemCount:BYTE
     EXTRN quantity:BYTE
     

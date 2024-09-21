@@ -2,22 +2,22 @@
 .STACK 100
 .DATA
     ;Login Menu Display
-    loginTitle      DB      'Welcome to Our Login Page$'
-    header          DB      '----------------------------------------$'
-    option1         DB      '1. Login$'
-    option2         DB      '2. Exit$'
-    choice          DB      ?
-    guideOption     DB      'Choose between 1-2: $'
-    invalidChoice   DB      'Invalid Choice. Please Try Again!$'
+    loginTitle          DB      'Welcome to Our Login Page$'
+    header              DB      '----------------------------------------$'
+    option1             DB      '1. Login$'
+    option2             DB      '2. Exit$'
+    choice              DB      ?
+    guideOption         DB      'Choose between 1-2: $'
+    invalidChoice       DB      'Invalid Choice. Please Try Again!$'
 
     ;Login
-    enterName       DB      'Enter name: $'
-    enterPassword   DB      'Enter password: $'                         ;Input Login Display
-    msgSuccess      DB      'Login successfully.$'
-    msgFailed       DB      'Login failed. Please try again.$'          ;Display Login Output
+    enterName           DB      'Enter name: $'
+    enterPassword       DB      'Enter password: $'                         ;Input Login Display
+    msgSuccess          DB      'Login successfully.$'
+    msgFailed           DB      'Login failed. Please try again.$'          ;Display Login Output
     
-    USER            DB      "admin$"                                    ;username for login
-    PASS            DB      "123$"                                      ;password for login
+    USER                DB      "admin$"                                    ;username for login
+    PASS                DB      "123$"                                      ;password for login
     
     ;Login Username String
     username            LABEL BYTE                                              
@@ -80,7 +80,7 @@ LOGIN:
     INT 21H
 
     MOV AH,0AH
-    LEA DX,username
+    LEA DX,username     
     INT 21H
     
     CALL PrintNewLine 
@@ -97,7 +97,7 @@ LOGIN:
     CALL PrintNewLine 
 
     MOV SI,0
-	MOV CL,ACTUSERNAME
+	MOV CL,ACTUSERNAME                                                  ;
     JMP L1
 
 EXIT:
