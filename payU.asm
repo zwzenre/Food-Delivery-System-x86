@@ -65,6 +65,12 @@ MENU ENDP
 
 ADDRESSINPUT PROC
     MOV AH,09H
+    LEA DX,dots
+    INT 21h
+
+    CALL PrintNewLine
+
+    MOV AH,09H
     LEA DX,addressMsg
     INT 21h
     
@@ -131,9 +137,7 @@ continuePayWithCard:
     MOV AH,09H
     LEA DX,askCardPaymentMsg
     INT 21H
-
-    CALL PrintNewLine
-
+    
     CALL PAYMENT
 
 FIN1:
@@ -212,6 +216,8 @@ PAYMENT PROC
     JMP FIN
 
     continuePay:
+        CALL PrintNewLine
+        
         MOV AH,09H
         LEA DX,paymentSuccess
         INT 21H

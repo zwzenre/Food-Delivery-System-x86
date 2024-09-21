@@ -1,6 +1,7 @@
 .MODEL SMALL
 .STACK 100H
 .DATA
+    dots DB '----------------------------------------------------$'
     confirmMsg DB 'Please check your order and total price.$'
     paymentMsg DB 'Choose a payment method.$'
     option1 DB '1. Card$'
