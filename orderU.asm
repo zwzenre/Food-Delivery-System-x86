@@ -105,35 +105,35 @@ CALQUANTITY PROC
     ;AX = total price for one menu item
     ADD grandTotal,AX                   ; add the AX that saves the current total item price to the global variable grand total
 
-    DIV ten
-    MOV BX,AX
+    DIV ten                             ; the current item total price is still in AL, divide ten for displaying 2 digit purpose later on
+    MOV BX,AX                           ; move AX to BX just in case
 
     MOV AH,02H
     MOV DL,BL
-    ADD DL,30H
+    ADD DL,30H                          ; display 1st digit of the current item total price
     INT 21H
     
     MOV AH,02H
-    MOV DL,BH
+    MOV DL,BH                           ; display 2nd digit of the current item total price
     ADD DL,30H
     INT 21H
-    
+
     CALL PrintNewLine
     CALL PrintNewLine
 
     MOV AH,09H
-    LEA DX,itemMsg
+    LEA DX,itemMsg                       ; display total item quantity message
     INT 21H
 
     MOV AH,02H
-    MOV DL,inputQuantity
+    MOV DL,inputQuantity                 ; display the quantity that the user input
     ADD DL,30H
     INT 21H
 
     CALL PrintNewLine
 
     MOV AH,09H
-    LEA DX,confirmMsg
+    LEA DX,confirmMsg                    ; display order has been added
     INT 21h
 
     RET
@@ -141,7 +141,7 @@ CALQUANTITY ENDP
 
 printA proc
     MOV AH,09H
-    LEA DX,rice1
+    LEA DX,rice1                          ; display Sweet and Sour Chicken Rice
     INT 21H
     
     CALL PrintNewLine
@@ -151,7 +151,7 @@ printA endp
 
 printB proc
     MOV AH,09H
-    LEA DX,rice2
+    LEA DX,rice2                          ; display Thai Style Chicken Rice 
     INT 21h
     
     CALL PrintNewLine
@@ -160,8 +160,9 @@ printB proc
 printB endp 
 
 printC proc
-    MOV AH,09H
-    LEA DX,rice3
+    MOV AH,09H  
+    LEA DX,rice3                         ; display Black Pepper Chicken Rice
+    
     INT 21h
     
     CALL PrintNewLine
@@ -171,7 +172,7 @@ printC endp
 
 printD proc
     MOV AH,09H
-    LEA DX,rice4
+    LEA DX,rice4                         ; display Butter Chicken Rice
     INT 21h
     
     CALL PrintNewLine
@@ -181,7 +182,7 @@ printD endp
 
 printE proc
     MOV AH,09H
-    LEA DX,rice5
+    LEA DX,rice5                            ; display Salted Egg Chicken Rice
     INT 21h
     
     CALL PrintNewLine
@@ -191,7 +192,7 @@ printE endp
 
 printF proc
     MOV AH,09H
-    LEA DX,rice6
+    LEA DX,rice6                            ; display Mongolian Chicken Rice
     INT 21h
     
     CALL PrintNewLine
@@ -201,7 +202,7 @@ printF endp
 
 printG proc
     MOV AH,09H
-    LEA DX,rice7
+    LEA DX,rice7                             ; display Cheesy Baked Chicken Rice
     INT 21h
     
     CALL PrintNewLine
@@ -211,7 +212,7 @@ printG endp
 
 printH proc
     MOV AH,09H
-    LEA DX,rice8
+    LEA DX,rice8                        ; display Fried Chicken Rice
     INT 21h
     
     CALL PrintNewLine
