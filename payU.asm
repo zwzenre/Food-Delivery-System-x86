@@ -132,6 +132,8 @@ continuePayWithCard:
     LEA DX,askCardPaymentMsg
     INT 21H
 
+    CALL PrintNewLine
+
     CALL PAYMENT
 
 FIN1:
@@ -222,6 +224,7 @@ PAYMENT PROC
 
         CALL CLEARDATA
     
+        CALL PrintNewLine
         CALL PrintNewLine
     
         JMP FIN
