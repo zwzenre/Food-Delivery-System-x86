@@ -47,15 +47,12 @@
     promptMsg DB 'Press any key to continue: $'
     errorMsg DB 'Invalid Choice. Please choose again.$'
 
-    ;Global Var
+    ;Global Variable
     PUBLIC quantity
     quantity DB 20 DUP (0)
 
     PUBLIC totalItemCount
     totalItemCount DB 0            ; Count of how many items were ordered (use for cart.asm)
-
-    ;PUBLIC itemLoop
-    ;itemLoop DB 0
 
     PUBLIC selectionArray
     selectionArray DB 20 DUP (0)
@@ -169,8 +166,6 @@ getQuantity:
     JA RETURN
     
     CALL PrintNewLine
-
-    ;INC itemLoop
 
     CALL CALQUANTITY
     JMP FINISH

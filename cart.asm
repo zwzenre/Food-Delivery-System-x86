@@ -6,7 +6,6 @@
     dots DB '----------------------------------------------------$'
     EXTRN selectionArray:BYTE
     EXTRN grandTotal:WORD 
-    ;EXTRN itemLoop:BYTE
     EXTRN totalItemCount:BYTE
     EXTRN quantity:BYTE
     

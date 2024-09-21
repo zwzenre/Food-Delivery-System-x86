@@ -38,18 +38,18 @@
 .CODE
     PUBLIC  LoginMenu                                                   ; Set LoginMenu as public for other files to use
     EXTRN   MAIN:NEAR                                                   ; Set MAIN from main.asm as external to use        
-    EXTRN   MainMenu:NEAR                                               ;         
+    EXTRN   MainMenu:NEAR                                               ; Set MainMenu from menu.asm as external to use     
 
-include utils.asm
-include loginU.asm
+include utils.asm                                                       ; Include the general utility file for use
+include loginU.asm                                                      ; Include the login utility file for use
 
 LoginMenu PROC
     MOV AX,@DATA
 	MOV DS,AX
     
-    CALL ClearScreen
+    CALL ClearScreen                                                    ; Call clear screen function
     
-    CALL MENU
+    CALL MENU                                                           ; Call Login Display from loginU.asm
 
     ; Check user choice
     CMP choice,1
@@ -58,18 +58,20 @@ LoginMenu PROC
     JE EXIT
     
     MOV AH,09H
-    LEA DX,invalidChoice
+    LEA DX,invalidChoice                                                ; Display invalid message
     INT 21h
     
-    CALL PrintNewLine
+    CALL PrintNewLine                                                   ; new line
 
     MOV AH,09H
-    LEA DX,promptMsg
+    LEA DX,promptMsg                                                    ; prompt message for get char function
     INT 21H
 
     CALL WaitForKeyPress
+
     ; Unconditional jump to finish if no valid choice is made
-    JMP MAIN ; Return to the main menu if invalid choice is made
+
+    JMP MAIN                                                            ; Return to the main menu if invalid choice is made
     
 LOGIN:
     ; Display prompt and get the username

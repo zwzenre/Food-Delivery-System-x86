@@ -87,20 +87,23 @@ QUANTITYINPUT PROC
 QUANTITYINPUT ENDP
 
 CALQUANTITY PROC
-    MOV AL,inputQuantity
-    ADD totalItemCount,AL
-    ADD quantity[SI],AL
+    MOV AL,inputQuantity                ; store input quantity into AL
+    ADD totalItemCount,AL               ; add the input quantity into global var 
 
-    MOV AH,09H
-    LEA DX,priceMsg
+    ADD quantity[SI],AL                 ; for example, when 1st food type is chosen, SI will be set to 0 from the previous function.
+                                        ; so for quantity[0] will store the AL for the 1st food type
+                                        ; it will be later used in cart
+
+    MOV AH,09H                          
+    LEA DX,priceMsg                     ; display price message
     INT 21H
 
-    MOV AX,0
-    MOV AL, BL
-    MUL inputQuantity    
+    MOV AX,0                            ; Clear AX for usage
+    MOV AL, BL                          ; example originally 1st food type = RM 8 in BL, move to AL for multiplication purpose
+    MUL inputQuantity                   ; times the number inputQuantity that user enter
 
-    ;AX = totalprice
-    ADD grandTotal,AX
+    ;AX = total price for one menu item
+    ADD grandTotal,AX                   ; add the AX that saves the current total item price to the global variable grand total
 
     DIV ten
     MOV BX,AX
