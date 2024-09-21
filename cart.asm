@@ -4,7 +4,7 @@
     menuTitle                       DB 'Welcome to Cart Page$'
     header                          DB 'Food                                 Quantity$'
     dots                            DB '----------------------------------------------------$'
-    
+
     EXTRN selectionArray:BYTE
     EXTRN grandTotal:WORD   
     EXTRN totalItemCount:BYTE
@@ -32,6 +32,8 @@
     EXTRN LoginMenu:NEAR 
     EXTRN MainMenu:NEAR
     EXTRN MAIN:NEAR
+    EXTRN Wallet:NEAR
+    
 include utils.asm
 include cartU.asm
 

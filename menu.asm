@@ -1,7 +1,6 @@
 .MODEL SMALL
 .STACK 100H
 .DATA
-
     ;menu segment
     menuTitle              DB       'Welcome to Main Menu$'
     header                 DB       '----------------------------------------$'
@@ -9,7 +8,8 @@
     option2                DB       '2. View Cart$'
     option3                DB       '3. Payment$'
     option4                DB       '4. Remove Order$'
-    return                 DB       '5. Return$'
+    option5                DB       '5. Top Up Wallet$'
+    return                 DB       '6. Return$'
     choice                 DB       ?
     guideOption            DB       'Choose between 1-5: $'
     exitMsg                DB       'Exiting the system...$'
@@ -19,7 +19,7 @@
     
     ;delete segment
     confirmDeleteMsg       DB       'Are you sure to remove all orders? (Y = Yes)$'
-    deleteOption           DB       ? 
+    deleteOption           DB       ?
     deleteMsg              DB       'Order Deleted$'
 
     errorMsg               DB       'Invalid Choice. Please choose again.$'
@@ -38,6 +38,7 @@
     EXTRN Order:NEAR
     EXTRN Cart:NEAR
     EXTRN Pay:NEAR
+    EXTRN Wallet:NEAR
      
 include utils.asm
 include menuU.asm
@@ -60,6 +61,8 @@ MainMenu PROC
     CMP choice,4
     JE DELETE
     CMP choice,5
+    JE TOPUP
+    CMP choice,6
     JE FINISH
     
     ; Unconditional jump to finish if no valid choice is made
@@ -133,6 +136,11 @@ CLEAR:
     CALL WaitForKeyPress
 
     JMP MainMenu
+
+TOPUP:
+    CALL Wallet
+    
+    JMP FINISH
 
 FINISH:
     CALL PrintNewLine
