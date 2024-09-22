@@ -59,7 +59,6 @@
     EXTRN totalItemCount:BYTE
     EXTRN quantity:BYTE
 
-
 .CODE
     PUBLIC Pay
     EXTRN Order:NEAR                      
