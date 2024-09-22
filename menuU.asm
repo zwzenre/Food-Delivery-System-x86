@@ -37,12 +37,6 @@ MENU PROC
     CALL PrintNewLine
 
     MOV AH,09H  
-    LEA DX,option5
-    INT 21H
-    
-    CALL PrintNewLine
-
-    MOV AH,09H  
     LEA DX,return
     INT 21H
     
