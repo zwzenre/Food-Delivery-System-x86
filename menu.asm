@@ -92,6 +92,8 @@ PAYMENT:
     JMP FINISH                        ; Jump to the end of the program
     
 DELETE:
+    CALL Cart
+
     MOV AH,09H
 	LEA DX,confirmDeleteMsg           ; Display confirm delete message
 	INT 21H
