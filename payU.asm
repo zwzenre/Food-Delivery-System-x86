@@ -11,7 +11,7 @@ ClearArrays:
     MOV BYTE PTR [DI], 0              ; Clear quantityArray element (set to 0)
     INC SI                            ; Move to the next element in selectionArray
     INC DI                            ; Move to the next element in quantity
-LOOP ClearArrays                  ; Repeat until CX becomes 0   
+LOOP ClearArrays                      ; Repeat until CX becomes 0   
     RET
 CLEARDATA ENDP
 

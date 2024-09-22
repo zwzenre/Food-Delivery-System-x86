@@ -1,30 +1,31 @@
 .MODEL SMALL
 .STACK 100H
 .DATA
-    menuTitle                       DB 'Welcome to Cart Page$'
-    header                          DB 'Food                                 Quantity$'
-    dots                            DB '----------------------------------------------------$'
+    menuTitle                       DB          'Welcome to Cart Page$'
+    header                          DB          'Food                                 Quantity$'
+    dots                            DB          '----------------------------------------------------$'
 
+    ;set following data types as external so that these data types which is global can use in this file
     EXTRN selectionArray:BYTE
     EXTRN grandTotal:WORD   
     EXTRN totalItemCount:BYTE
     EXTRN quantity:BYTE
     
     ; Labels for selected food names
-    rice1 DB 'Sweet and Sour Chicken Rice             $'
-    rice2 DB 'Thai Style Chicken Rice                 $'
-    rice3 DB 'Black Pepper Chicken Rice               $'
-    rice4 DB 'Butter Chicken Rice                     $'
-    rice5 DB 'Salted Egg Chicken Rice                 $'
-    rice6 DB 'Mongolian Chicken Rice                  $'
-    rice7 DB 'Cheesy Baked Chicken Rice               $'
-    rice8 DB 'Fried Chicken Rice                      $'
+    rice1                            DB         'Sweet and Sour Chicken Rice             $'
+    rice2                            DB         'Thai Style Chicken Rice                 $'
+    rice3                            DB         'Black Pepper Chicken Rice               $'
+    rice4                            DB         'Butter Chicken Rice                     $'
+    rice5                            DB         'Salted Egg Chicken Rice                 $'
+    rice6                            DB         'Mongolian Chicken Rice                  $'
+    rice7                            DB         'Cheesy Baked Chicken Rice               $'
+    rice8                            DB         'Fried Chicken Rice                      $'
     
-    totalPriceMsg DB 'Grand Total: RM$'       
-    totalQuantityMsg DB 'Total Item: $'
+    totalPriceMsg                    DB         'Grand Total: RM$'       
+    totalQuantityMsg                 DB         'Total Item: $'
 
-    inputChar DB ?         ; Variable to store the input character
-    promptMsg DB 'Press any key to continue: $'
+    inputChar                        DB         ?         ; Variable to store the input character
+    promptMsg                        DB         'Press any key to continue: $'
 
 .CODE
     PUBLIC Cart
@@ -45,15 +46,15 @@ Cart PROC
     CALL MENU                                                
 
     RICEA:
-        CMP selectionArray[0],0                     ; (index = 0) __ __ __ __ __ __ __
-        JZ RICEB
-
+        CMP selectionArray[0],0                     ; compare the stored of each index in selection array
+        JZ RICEB                                    ; the first index will store the first rice type
+                                                    ; if zero, then it will jump to next rice type to check    
         MOV AH,09H
         LEA DX,rice1
         INT 21H
 
         MOV AH,02H
-        MOV DL,quantity[0]
+        MOV DL,quantity[0]                          ; if the first index has quantities in it, it will print the quantities
         ADD DL,30H
         INT 21H
 

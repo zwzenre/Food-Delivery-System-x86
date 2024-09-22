@@ -37,5 +37,4 @@ LOOP calculate_total_quantity_loop
     pop cx
     pop si
     ret
-
 calculate_total_quantity ENDP

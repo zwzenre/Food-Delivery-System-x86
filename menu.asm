@@ -25,7 +25,7 @@
     errorMsg               DB       'Invalid Choice. Please choose again.$'
     
 
-    ;set following data types as external to become a global variable for to be used in other files
+    ;set following data types as external so that these data types which is global can use in this file
     EXTRN selectionArray:BYTE                  
     EXTRN grandTotal:WORD                      
     EXTRN totalItemCount:BYTE                  
