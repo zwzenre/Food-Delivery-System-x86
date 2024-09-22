@@ -73,6 +73,11 @@ LoginMenu PROC
 
     JMP MAIN                                                            ; Return to the main menu if invalid choice is made
     
+
+    EXIT:
+        RET                                                             ; Returning back to main.asm
+
+
 LOGIN:
     ; Display prompt and get the username
     MOV AH,09H
@@ -96,72 +101,60 @@ LOGIN:
     
     CALL PrintNewLine 
 
+     ; Username Comparing
     MOV SI,0
-	MOV CL,ACTUSERNAME                                                  ;
-    JMP L1
+	MOV CL,ACTUSERNAME                                                  ; Compare entered name with the correct name
+    JMP L1                                  
 
-EXIT:
-    RET
+    L1:
+	    MOV BL,USER[SI]	
+	    CMP usernameBuffer[SI],BL
+	    JE N1
 
-; Compare the input username and password with the stored ones
-L1:
-	MOV BL,USER[SI]	
-	CMP usernameBuffer[SI],BL
-	JE N1
+        JMP WRONGACCESS                                                 ; If not correct, jump to display error                                               
+
+    N1:	
+	    INC SI
+
+	    MOV AL,ACTUSERNAME                                                  ; compare string length
+	    CMP AL,05                                                           ; length of "admin" is 05
+	    JE L2
 	
-	MOV AH,09H
-	LEA DX,msgFailed
-	INT 21H
-	JMP FINISH
+        JMP WRONGACCESS
+    LOOP L1
 
-N1:	
-	INC SI
 
-	MOV AL,ACTUSERNAME
-	CMP AL,05
-	JE L2
-	
-E1:
-	MOV AH,09H
-	LEA DX,msgFailed
-	INT 21H
-	JMP FINISH
-		
-
-LOOP L1
+    ; Password Comparing
     MOV SI,0
-	MOV CL,ACTPASSWORD
+	MOV CL,ACTPASSWORD                                                  
 
-L2:
-	MOV BL,PASS[SI]	
-	CMP passwordBuffer[SI],BL
-	JE N2
+    L2:
+	    MOV BL,PASS[SI]	
+	    CMP passwordBuffer[SI],BL
+	    JE N2
 	
-	MOV AH,09H
-	LEA DX,msgFailed
-	INT 21H
+        JMP WRONGACCESS
+
+    N2:	
+	    INC SI
+
+	    MOV AL,ACTPASSWORD
+	    CMP AL,03
+	    JE SUCCESS
 	
-    CALL PrintNewLine
-        
-	JMP FINISH
-
-N2:	
-	INC SI
-
-	MOV AL,ACTPASSWORD
-	CMP AL,03
-	JE SUCCESS
-	
-E2:
-	MOV AH,09H
-	LEA DX,msgFailed
-	INT 21H
-    
-    CALL PrintNewLine
-
-	JMP FINISH
+    E2:
+	    JMP WRONGACCESS
 		
 LOOP L2
+
+WRONGACCESS:
+	MOV AH,09H
+	LEA DX,msgFailed                                                    ; username not correct, error display 
+	INT 21H
+
+    CALL PrintNewLine
+
+	JMP FINISH 
 
 SUCCESS:
 
