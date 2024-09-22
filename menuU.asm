@@ -1,57 +1,57 @@
 MENU PROC
     ; Display Menu
     MOV AH,09H
-    LEA DX,menuTitle
+    LEA DX,menuTitle            ; Display menuTitle
     INT 21h
     
     CALL PrintNewLine
 
-    MOV AH,09H
-    LEA DX,header
+    MOV AH,09H 
+    LEA DX,header                ; Display header   
     INT 21H
 
     CALL PrintNewLine
     
     MOV AH,09H
-    LEA DX,option1
+    LEA DX,option1                ; Display option1
     INT 21H
     
     CALL PrintNewLine
     
     MOV AH,09H
-    LEA DX,option2
+    LEA DX,option2                ; Display option2
     INT 21H
 
     CALL PrintNewLine
     
     MOV AH,09H
-    LEA DX,option3
+    LEA DX,option3                ; Display option3
     INT 21H
     
     CALL PrintNewLine
     
     MOV AH,09H  
-    LEA DX,option4
+    LEA DX,option4                 ; Display option4
     INT 21H
     
     CALL PrintNewLine
 
     MOV AH,09H  
-    LEA DX,return
+    LEA DX,return                  ; Display return 
     INT 21H
     
     CALL PrintNewLine
     CALL PrintNewLine
     
     MOV AH,09H
-    LEA DX,guideOption
+    LEA DX,guideOption              ; Display guidance for user
     INT 21H
     
     ; Get user input
     MOV AH,01H
     INT 21H
-    SUB AL,30H              ; Convert ASCII to numerical value
-    MOV choice,AL               ; Save the user's choice in the `choice` variable
+    SUB AL,30H                      ; Convert ASCII to numerical value
+    MOV choice,AL                   ; Save the user's choice in the `choice` variable
     
     
     CALL PrintNewLine
@@ -61,9 +61,9 @@ MENU ENDP
 
 
 CLEARDATA PROC
-    MOV CX, 20                       ; Set the counter for 20 elements
+    MOV CX, 20                        ; Set the counter for 20 elements
     LEA SI, selectionArray            ; Load the base address of selectionArray into SI
-    LEA DI, quantity            ; Load the base address of quantity into DI
+    LEA DI, quantity                  ; Load the base address of quantity into DI
 
     MOV grandTotal,0 
     MOV totalItemCount,0
@@ -73,6 +73,6 @@ ClearArrays:
     MOV BYTE PTR [DI], 0              ; Clear quantityArray element (set to 0)
     INC SI                            ; Move to the next element in selectionArray
     INC DI                            ; Move to the next element in quantity
-LOOP ClearArrays                  ; Repeat until CX becomes 0   
+LOOP ClearArrays                      ; Repeat until CX becomes 0   
     RET
 CLEARDATA ENDP

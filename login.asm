@@ -73,10 +73,8 @@ LoginMenu PROC
 
     JMP MAIN                                                            ; Return to the main menu if invalid choice is made
     
-
     EXIT:
         RET                                                             ; Returning back to main.asm
-
 
 LOGIN:
     ; Display prompt and get the username
@@ -103,12 +101,12 @@ LOGIN:
 
      ; Username Comparing
     MOV SI,0
-	MOV CL,ACTUSERNAME                                                  ; Compare entered name with the correct name
+	MOV CL,ACTUSERNAME                                                  ; use actual length as loop count
     JMP L1                                  
 
     L1:
 	    MOV BL,USER[SI]	
-	    CMP usernameBuffer[SI],BL
+	    CMP usernameBuffer[SI],BL                                       ; compare both each of their index 
 	    JE N1
 
         JMP WRONGACCESS                                                 ; If not correct, jump to display error                                               
@@ -116,36 +114,38 @@ LOGIN:
     N1:	
 	    INC SI
 
-	    MOV AL,ACTUSERNAME                                                  ; compare string length
-	    CMP AL,05                                                           ; length of "admin" is 05
-	    JE L2
+	    MOV AL,ACTUSERNAME                                               ; compare string length
+	    CMP AL,05                                                        ; length of "admin" is 05
+	    JE CORRECT
 	
         JMP WRONGACCESS
-    LOOP L1
+    
+        CORRECT:
 
+    LOOP L1
 
     ; Password Comparing
     MOV SI,0
-	MOV CL,ACTPASSWORD                                                  
+	MOV CL,ACTPASSWORD                                                   ; use actual length as loop count
 
     L2:
 	    MOV BL,PASS[SI]	
-	    CMP passwordBuffer[SI],BL
+	    CMP passwordBuffer[SI],BL                                        ; compare both each of their index 
 	    JE N2
 	
-        JMP WRONGACCESS
+        JMP WRONGACCESS                                                  ; If not correct, jump to display error
 
     N2:	
 	    INC SI
 
-	    MOV AL,ACTPASSWORD
-	    CMP AL,03
-	    JE SUCCESS
+	    MOV AL,ACTPASSWORD                                               ; compare string length
+	    CMP AL,03                                                        ; length of "123" is 03
+	    JE SUCCESS                                                       ; If correct, jump to success
 	
     E2:
 	    JMP WRONGACCESS
 		
-LOOP L2
+    LOOP L2
 
 WRONGACCESS:
 	MOV AH,09H
@@ -161,13 +161,13 @@ SUCCESS:
     CALL PrintNewLine
 
 	MOV AH,09H
-	LEA DX,msgSuccess
+	LEA DX,msgSuccess                                                   ; Display Success
 	INT 21H
     
     CALL PrintNewLine 
     
     MOV AH,09H
-	LEA DX,promptMsg
+	LEA DX,promptMsg                                                    
 	INT 21H
 
     CALL WaitForKeyPress 

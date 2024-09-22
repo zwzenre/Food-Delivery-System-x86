@@ -13,7 +13,8 @@
     guideOption            DB       'Choose between 1-5: $'
     exitMsg                DB       'Exiting the system...$'
 
-    inputChar              DB       ?                                           ; Variable to store the input character
+    ;getchar
+    inputChar              DB       ?                                           
     promptMsg              DB       'Press any key to continue: $'
     
     ;delete segment
@@ -22,6 +23,7 @@
     deleteMsg              DB       'Order Deleted$'
 
     errorMsg               DB       'Invalid Choice. Please choose again.$'
+    
 
     ;set following data types as external to become a global variable for to be used in other files
     EXTRN selectionArray:BYTE                  
@@ -31,23 +33,23 @@
 
 
 .CODE
-    PUBLIC MainMenu
-    EXTRN MAIN:NEAR
-    EXTRN LoginMenu:NEAR 
-    EXTRN Order:NEAR
-    EXTRN Cart:NEAR
-    EXTRN Pay:NEAR
+    PUBLIC MainMenu                 ; Set MainMenu as public for other files to use
+    EXTRN MAIN:NEAR                 ; Set MAIN from main.asm as external to use
+    EXTRN LoginMenu:NEAR            ; Set LoginMenu from login.asm as external to use
+    EXTRN Order:NEAR                ; Set Order from order.asm as external to use
+    EXTRN Cart:NEAR                 ; Set Cart from cart.asm as external to use
+    EXTRN Pay:NEAR                  ; Set Pay from pay.asm as external to use
      
-include utils.asm
-include menuU.asm
+include utils.asm                   ; Include the general utility file for use
+include menuU.asm                   ; Include the menu utility file for use
 
 MainMenu PROC
     MOV AX, @DATA
     MOV DS, AX
 
-    CALL ClearScreen
+    CALL ClearScreen                ; Call clear screen function
     
-    CALL MENU
+    CALL MENU                       ; Call Menu Display from menuU.asm
     
     ; Check user choice
     CMP choice,1
@@ -62,52 +64,53 @@ MainMenu PROC
     JE FINISH
     
     ; Unconditional jump to finish if no valid choice is made
-    JMP MainMenu ; Return to the main menu if invalid choice is made
+
+    JMP MainMenu                     ; Return to the main menu if invalid choice is made
     
 NEWORDER:
-    CALL Order
+    CALL Order                       ; Call Order Function from order.asm
 
-    JMP FINISH  ; Jump to the end of the program
+    JMP FINISH                       ; Jump to the end of the program
 
 SHOWCART:
-    CALL Cart
+    CALL Cart                        ; Call Cart Function from cart.asm
 
     MOV AH,09H
-	LEA DX,promptMsg
+	LEA DX,promptMsg                    
 	INT 21H
 
     CALL WaitForKeyPress
 
     CALL MainMenu    
 
-    JMP FINISH  ; Jump to the end of the program
+    JMP FINISH                        ; Jump to the end of the program
 
 PAYMENT:
-    CALL Cart
-    CALL Pay
+    CALL Cart                         ; Call Cart Function from cart.asm for displaying
+    CALL Pay                          ; Call Pay Function from pay.asm
 
-    JMP FINISH  ; Jump to the end of the program
+    JMP FINISH                        ; Jump to the end of the program
     
 DELETE:
     MOV AH,09H
-	LEA DX,confirmDeleteMsg
+	LEA DX,confirmDeleteMsg           ; Display confirm delete message
 	INT 21H
 
     MOV AH,01H
     INT 21H
-    MOV deleteOption,AL
+    MOV deleteOption,AL                ; Store user's choice for deletion
 
     CALL PrintNewLine
 
     CMP deleteOption,'Y'
-    JE CLEAR
-    CMP deleteOption,'y'
+    JE CLEAR                            ; compare 'Y' & 'y' for the word yes
+    CMP deleteOption,'y'                ; if same, jump to CLEAR segment
     JE CLEAR
 
     CALL PrintNewLine
 
     MOV AH,09H
-	LEA DX,errorMsg
+	LEA DX,promptMsg                     ; Display return back after choosing not to delete
 	INT 21H
 
     CALL WaitForKeyPress
@@ -117,21 +120,21 @@ DELETE:
 CLEAR:
     CALL PrintNewLine
 
-    MOV AH,09H
-	LEA DX,deleteMsg
-	INT 21H
+    CALL CLEARDATA                        ; call clear data from menuU.asm to remove all saved options by setting value of SI and arrays to nothing      
 
-    CALL CLEARDATA
+    MOV AH,09H
+	LEA DX,deleteMsg                      ; Display delete message
+	INT 21H
 
     CALL PrintNewLine
 
     MOV AH,09H
-	LEA DX,promptMsg
+	LEA DX,promptMsg                      
 	INT 21H
 
     CALL WaitForKeyPress
 
-    JMP MainMenu
+    JMP MainMenu                           ; Jump back to MainMenu after deleting
 
 FINISH:
     CALL PrintNewLine

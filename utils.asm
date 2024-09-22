@@ -64,34 +64,34 @@ PrintWordAsDecimal PROC
     INT 21H
     JMP END_PRINT
 
-NEXT:
-    ; Begin the loop to extract digits
-    MOV SI, 0      ; Index into digit buffer
-    MOV DI, 6      ; Maximum of 5 digits + null terminator
+    NEXT:
+        ; Begin the loop to extract digits
+        MOV SI, 0      ; Index into digit buffer
+        MOV DI, 6      ; Maximum of 5 digits + null terminator
 
-DIV_LOOP:
-    XOR DX, DX     ; Clear DX before DIV
-    DIV CX         ; AX = AX / 10, DX = remainder (digit)
+    DIV_LOOP:
+        XOR DX, DX     ; Clear DX before DIV
+        DIV CX         ; AX = AX / 10, DX = remainder (digit)
 
-    ADD DL, '0'    ; Convert remainder to ASCII
-    PUSH DX        ; Store the digit on the stack
+        ADD DL, '0'    ; Convert remainder to ASCII
+        PUSH DX        ; Store the digit on the stack
     
-    INC SI         ; Count how many digits we have
-    CMP AX, 0      ; If AX is 0, we are done
-    JNE DIV_LOOP
+        INC SI         ; Count how many digits we have
+        CMP AX, 0      ; If AX is 0, we are done
+        JNE DIV_LOOP
 
-    ; Now print digits in reverse order (from the stack)
-PRINT_LOOP:
-    POP DX         ; Get the next digit from the stack
-    MOV AH, 02H    ; DOS function to print a character
-    INT 21H
-    DEC SI         ; Decrease digit count
-    JNZ PRINT_LOOP ; If there are still digits, continue
+        ; Now print digits in reverse order (from the stack)
+    PRINT_LOOP:
+        POP DX         ; Get the next digit from the stack
+        MOV AH, 02H    ; DOS function to print a character
+        INT 21H
+        DEC SI         ; Decrease digit count
+        JNZ PRINT_LOOP ; If there are still digits, continue
 
-END_PRINT:
-    POP DX         ; Restore registers
-    POP CX
-    POP BX
-    POP AX
-    RET
+    END_PRINT:
+        POP DX         ; Restore registers
+        POP CX
+        POP BX
+        POP AX
+        RET
 PrintWordAsDecimal ENDP
