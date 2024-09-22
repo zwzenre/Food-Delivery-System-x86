@@ -32,7 +32,6 @@
     EXTRN LoginMenu:NEAR 
     EXTRN MainMenu:NEAR
     EXTRN MAIN:NEAR
-    EXTRN Wallet:NEAR
     
 include utils.asm
 include cartU.asm

@@ -66,7 +66,6 @@
     EXTRN MainMenu:NEAR
     EXTRN MAIN:NEAR
     EXTRN Cart:NEAR
-    EXTRN Wallet:NEAR
 include utils.asm
 include payU.asm
 

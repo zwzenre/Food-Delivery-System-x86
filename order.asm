@@ -66,7 +66,6 @@
     EXTRN LoginMenu:NEAR 
     EXTRN MainMenu:NEAR
     EXTRN Cart:FAR
-    EXTRN Wallet:NEAR
 
 include utils.asm
 include orderU.asm
