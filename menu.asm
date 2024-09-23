@@ -86,8 +86,14 @@ SHOWCART:
     JMP FINISH                        ; Jump to the end of the program
 
 PAYMENT:
-    
-    CALL Pay                          ; Call Pay Function from pay.asm
+    CALL Cart                          ; Call Pay Function from pay.asm
+
+    CMP totalItemCount,0
+    JE EMPTYprompt
+
+    CALL Pay
+
+    JMP MainMenu
 
     JMP FINISH                        ; Jump to the end of the program
     

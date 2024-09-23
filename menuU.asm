@@ -103,5 +103,5 @@ EMPTY PROC
 
     CALL WaitForKeyPress
 
-    
+    RET
 EMPTY ENDP
