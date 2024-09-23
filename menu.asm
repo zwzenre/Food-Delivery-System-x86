@@ -26,13 +26,11 @@
     
     cartEmpty              DB       'Your cart is empty. Go order some food.$'
     
-
     ;set following data types as external so that these data types which is global can use in this file
     EXTRN selectionArray:BYTE                  
     EXTRN grandTotal:WORD                      
     EXTRN totalItemCount:BYTE                  
     EXTRN quantity:BYTE                        
-
 
 .CODE
     PUBLIC MainMenu                 ; Set MainMenu as public for other files to use
