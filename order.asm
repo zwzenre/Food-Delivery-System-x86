@@ -116,47 +116,38 @@ Order PROC
     JMP Order ; Return if invalid choice
     
 RICEA:
-    CALL printA
     CALL setIndexA
     JMP getQuantity
 
 RICEB:
-    CALL printB
     CALL setIndexB
     JMP getQuantity
 
 RICEC:
-    CALL printC
     CALL setIndexC
     JMP getQuantity
 
 RICED:
-    CALL printD
     CALL setIndexD
     JMP getQuantity
     
 RICEE:
-    CALL printE
     CALL setIndexE
     JMP getQuantity
 
 RICEF:
-    CALL printF
     CALL setIndexF
     JMP getQuantity
  
 RICEG:
-    CALL printG
     CALL setIndexG
     JMP getQuantity
 
 RICEH:
-    CALL printH
     CALL setIndexH
     JMP getQuantity
 
 getQuantity:
-
     CALL QUANTITYINPUT
 
     CMP inputQuantity,0
@@ -172,6 +163,9 @@ getQuantity:
     JMP FINISH
 
 RETURN:
+    MOV selectionArray[SI],0
+    MOV quantity[SI],0
+
     MOV AH,09H
     LEA DX,errorMsg                     ; Display Error Message
     INT 21H

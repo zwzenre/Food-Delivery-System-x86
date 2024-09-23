@@ -6,12 +6,15 @@ CLEARDATA PROC
     MOV grandTotal,0 
     MOV totalItemCount,0
 
-ClearArrays:
-    MOV BYTE PTR [SI], 0              ; Clear selectionArray element (set to 0)
-    MOV BYTE PTR [DI], 0              ; Clear quantityArray element (set to 0)
-    INC SI                            ; Move to the next element in selectionArray
-    INC DI                            ; Move to the next element in quantity
-LOOP ClearArrays                      ; Repeat until CX becomes 0   
+    ClearArrays:
+        MOV BYTE PTR [SI], 0              ; Clear selectionArray element (set to 0)
+        MOV BYTE PTR [DI], 0              ; Clear quantityArray element (set to 0)
+        INC SI                            ; Move to the next element in selectionArray
+        INC DI                            ; Move to the next element in quantity
+LOOP ClearArrays                      ; Repeat until CX becomes 0  
+
+
+
     RET
 CLEARDATA ENDP
 

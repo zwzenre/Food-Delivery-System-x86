@@ -139,131 +139,108 @@ CALQUANTITY PROC
     RET
 CALQUANTITY ENDP
 
-printA proc
+setIndexA proc
     MOV AH,09H
     LEA DX,rice1                          ; display Sweet and Sour Chicken Rice
     INT 21H
     
     CALL PrintNewLine
-    
-    RET
-printA endp 
 
-printB proc
-    MOV AH,09H
-    LEA DX,rice2                          ; display Thai Style Chicken Rice 
-    INT 21h
-    
-    CALL PrintNewLine
-
-    RET
-printB endp 
-
-printC proc
-    MOV AH,09H  
-    LEA DX,rice3                         ; display Black Pepper Chicken Rice
-    
-    INT 21h
-    
-    CALL PrintNewLine
-
-    RET
-printC endp 
-
-printD proc
-    MOV AH,09H
-    LEA DX,rice4                         ; display Butter Chicken Rice
-    INT 21h
-    
-    CALL PrintNewLine
-
-    RET
-printD endp 
-
-printE proc
-    MOV AH,09H
-    LEA DX,rice5                            ; display Salted Egg Chicken Rice
-    INT 21h
-    
-    CALL PrintNewLine
-
-    RET
-printE endp
-
-printF proc
-    MOV AH,09H
-    LEA DX,rice6                            ; display Mongolian Chicken Rice
-    INT 21h
-    
-    CALL PrintNewLine
-
-    RET
-printF endp 
-
-printG proc
-    MOV AH,09H
-    LEA DX,rice7                             ; display Cheesy Baked Chicken Rice
-    INT 21h
-    
-    CALL PrintNewLine
-
-    RET
-printG endp 
-
-printH proc
-    MOV AH,09H
-    LEA DX,rice8                        ; display Fried Chicken Rice
-    INT 21h
-    
-    CALL PrintNewLine
-
-    RET
-printH endp 
-
-setIndexA proc
     MOV SI,0                        ; Set the SI to 0, later use in itemPrice array to get the first food's price which is RM8
     MOV selectionArray[SI],1        ; Is now known that SI = 0,  it will point the FIRST index in the array of selectionArray and set as 1
     RET
 setIndexA endp
 
 setIndexB proc
+    MOV AH,09H
+    LEA DX,rice2                          ; display Thai Style Chicken Rice 
+    INT 21h
+    
+    CALL PrintNewLine
+
     MOV SI,1
     MOV selectionArray[SI],2
     RET
 setIndexB endp
 
 setIndexC proc
+    MOV AH,09H  
+    LEA DX,rice3                         ; display Black Pepper Chicken Rice
+    INT 21h
+    
+    CALL PrintNewLine
+
     MOV SI,2
     MOV selectionArray[SI],3
     RET
 setIndexC endp
 
 setIndexD proc
+    MOV AH,09H
+    LEA DX,rice4                         ; display Butter Chicken Rice
+    INT 21h
+    
+    CALL PrintNewLine
+
     MOV SI,3
     MOV selectionArray[SI],4
     RET
 setIndexD endp
 
 setIndexE proc
+    MOV AH,09H
+    LEA DX,rice5                            ; display Salted Egg Chicken Rice
+    INT 21h
+    
+    CALL PrintNewLine
+
     MOV SI,4
     MOV selectionArray[SI],5
     RET
 setIndexE endp
 
 setIndexF proc
+    MOV AH,09H
+    LEA DX,rice6                            ; display Mongolian Chicken Rice
+    INT 21h
+    
+    CALL PrintNewLine
+
     MOV SI,5
     MOV selectionArray[SI],6
     RET
 setIndexF endp
 
 setIndexG proc
+    MOV AH,09H
+    LEA DX,rice7                             ; display Cheesy Baked Chicken Rice
+    INT 21h
+    
+    CALL PrintNewLine
+
     MOV SI,6
     MOV selectionArray[SI],7
     RET
 setIndexG endp
 
 setIndexH proc
+    MOV AH,09H
+    LEA DX,rice8                        ; display Fried Chicken Rice
+    INT 21h
+    
+    CALL PrintNewLine
+
     MOV SI,7
     MOV selectionArray[SI],8
     RET
 setIndexH endp
+
+Set0ifQuantity0 proc
+    LEA SI, selectionArray            ; Load the base address of selectionArray into SI
+    LEA DI, quantity                  ; Load the base address of quantity into DI
+
+    MOV BYTE PTR [SI], 0              ; Clear selectionArray element (set to 0)
+    MOV BYTE PTR [DI], 0              ; Clear quantityArray element (set to 0)
+    
+    ret
+Set0ifQuantity0 endp

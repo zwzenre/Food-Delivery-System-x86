@@ -30,9 +30,9 @@
 	phoneNumberBuffer           DB          20 DUP ('$')
     
     address                     LABEL       BYTE
-	MAXaddress                  DB          50
+	MAXaddress                  DB          99
 	ACTaddress                  DB          ?
-	addressBuffer               DB          50 DUP ('$')
+	addressBuffer               DB          99 DUP ('$')        
 
     confirmAddressMsg           DB          'This is your address: $'
     
