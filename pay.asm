@@ -35,8 +35,6 @@
 	addressBuffer               DB          99 DUP ('$')        
 
     confirmAddressMsg           DB          'This is your address: $'
-    
-    cartEmpty                   DB          'Your cart is empty. Go order some food.$'
 
     ;Card Payment
     confirmCardMsg              DB          'This is your card number: $'
@@ -52,6 +50,8 @@
 
     inputChar                   DB          ?                                           ; Variable to store the input character
     promptMsg                   DB          'Press any key to continue: $'
+
+    cartEmpty                   DB          'Your cart is empty. Go order some food.$'
 
     ;set following data types as external so that these data types which is global can use in this file
     EXTRN selectionArray:BYTE
@@ -73,6 +73,8 @@ include payU.asm
 Pay PROC
     MOV AX, @DATA
     MOV DS, AX
+
+    CALL Cart                         ; Call Cart Function from cart.asm for displaying
 
     CMP totalItemCount,0
     JE EMPTY
@@ -112,7 +114,11 @@ EMPTY:
 
     CALL PrintNewLine
 
+    JMP Pay
+
 FINISH:
+    CALL PrintNewLine
+
     MOV AH,09H
 	LEA DX,promptMsg
 	INT 21H

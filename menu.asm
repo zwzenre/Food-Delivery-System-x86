@@ -24,6 +24,8 @@
 
     errorMsg               DB       'Invalid Choice. Please choose again.$'
     
+    cartEmpty              DB       'Your cart is empty. Go order some food.$'
+    
 
     ;set following data types as external so that these data types which is global can use in this file
     EXTRN selectionArray:BYTE                  
@@ -86,13 +88,16 @@ SHOWCART:
     JMP FINISH                        ; Jump to the end of the program
 
 PAYMENT:
-    CALL Cart                         ; Call Cart Function from cart.asm for displaying
+    
     CALL Pay                          ; Call Pay Function from pay.asm
 
     JMP FINISH                        ; Jump to the end of the program
     
 DELETE:
     CALL Cart
+
+    CMP totalItemCount,0
+    JE EMPTYprompt
 
     MOV AH,09H
 	LEA DX,confirmDeleteMsg           ; Display confirm delete message
@@ -119,22 +124,15 @@ DELETE:
 
     JMP MainMenu
 
+EMPTYprompt:
+    CALL EMPTY
+
+    JMP MainMenu
+
 CLEAR:
     CALL PrintNewLine
 
     CALL CLEARDATA                        ; call clear data from menuU.asm to remove all saved options by setting value of SI and arrays to nothing      
-
-    MOV AH,09H
-	LEA DX,deleteMsg                      ; Display delete message
-	INT 21H
-
-    CALL PrintNewLine
-
-    MOV AH,09H
-	LEA DX,promptMsg                      
-	INT 21H
-
-    CALL WaitForKeyPress
 
     JMP MainMenu                           ; Jump back to MainMenu after deleting
 

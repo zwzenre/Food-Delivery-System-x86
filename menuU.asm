@@ -74,5 +74,34 @@ ClearArrays:
     INC SI                            ; Move to the next element in selectionArray
     INC DI                            ; Move to the next element in quantity
 LOOP ClearArrays                      ; Repeat until CX becomes 0   
+
+    MOV AH,09H
+	LEA DX,deleteMsg                      ; Display delete message
+	INT 21H
+
+    CALL PrintNewLine
+
+    MOV AH,09H
+	LEA DX,promptMsg                      
+	INT 21H
+
+    CALL WaitForKeyPress
+
     RET
 CLEARDATA ENDP
+
+EMPTY PROC
+    MOV AH,09H
+    LEA DX,cartEmpty
+    INT 21h
+
+    CALL PrintNewLine
+
+    MOV AH,09H
+	LEA DX,promptMsg                      
+	INT 21H
+
+    CALL WaitForKeyPress
+
+    
+EMPTY ENDP
